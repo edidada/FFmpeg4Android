@@ -24,3 +24,12 @@ JNIEXPORT jint JNICALL
     nb_output_files = 0;
     return jxRun(argc,argv);
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mabeijianxi_jianxiffmpegcmd_MainActivity_getFFmpegConfig(JNIEnv *env, jobject instance) {
+
+    char info[10000] = {0};
+    sprintf(info, "%s\n", avcodec_configuration());
+    return (*env)->NewStringUTF(env,info);
+
+}
