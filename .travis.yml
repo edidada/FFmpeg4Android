@@ -1,0 +1,6 @@
+language: c
+sudo: false
+os:
+  - linux
+script:
+  - uname -a
