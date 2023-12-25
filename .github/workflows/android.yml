@@ -24,7 +24,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: |
-        cd fmpeg-3.2.5
+        cd ffmpeg-3.2.5
         ./configure
         make
         sudo make install
