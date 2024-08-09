@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -24,8 +24,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: |
-        cd ffmpeg-3.2.5
-        ./configure
-        make
-        sudo make install
+        chmod +x build_script/jianxi_ffmpeg_build_all.sh && build_script/jianxi_ffmpeg_build_all.sh
         ./gradlew build
