@@ -24,5 +24,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: |
-        chmod +x build_script/jianxi_ffmpeg_build_all.sh && build_script/jianxi_ffmpeg_build_all.sh
+        chmod +x build_script/jianxi_ffmpeg_build_all.sh && cd build_script && ./jianxi_ffmpeg_build_all.sh
         ./gradlew build
