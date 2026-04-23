@@ -1,8 +1,13 @@
 *.iml
 .gradle
+.gradle-home/
 /local.properties
 /.idea/*
 .DS_Store
 /build
+/app/build/
 /captures
 .externalNativeBuild
+app/.cxx/
+android-sdk
+build_script/x264-src/
