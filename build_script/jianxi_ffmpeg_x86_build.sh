@@ -1,12 +1,12 @@
 # Created by jianxi on 2017/6/4
 # https://github.com/mabeijianxi
 # mabeijianxi@gmail.com
-
+cd ../ffmpeg-3.2.5
 #!/bin/bash
 basepath=$(cd `dirname $0`; pwd)
 export TMPDIR=$basepath/ffmpegtemp
 # NDK的路径，根据自己的安装位置进行设置
-NDK=/Users/jianxi/android/sdk/ndk-bundle
+NDK=/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e
 # 编译针对的平台，可以根据自己的需求进行设置
 # 这里选择最低支持android-14, arm架构，生成的so库是放在
 # libs/armeabi文件夹下的，若针对x86架构，要选择arch-x86
@@ -20,13 +20,13 @@ CPU=x86
 
 echo $basepath
 
-FDK_INCLUDE=$basepath/fdk-aac-0.1.5/android/$CPU/include
+FDK_INCLUDE=$basepath/fdk-aac-0.1.../build_script/android/$CPU/include
 
-FDK_LIB=$basepath/fdk-aac-0.1.5/android/$CPU/lib
+FDK_LIB=$basepath/fdk-aac-0.1.../build_script/android/$CPU/lib
 
-X264_INCLUDE=$basepath/libx264/android/$CPU/include
+X264_INCLUDE=$basepath/libx26../build_script/android/$CPU/include
 
-X264_LIB=$basepath/libx264/android/$CPU/lib
+X264_LIB=$basepath/libx26../build_script/android/$CPU/lib
 
 FF_EXTRA_CFLAGS="-O3 -DANDROID -Dipv6mr_interface=ipv6mr_ifindex -fasm -Wno-psabi -fno-short-enums -fno-strict-aliasing -fomit-frame-pointer -march=k8 "
 FF_CFLAGS="-O3 -Wall -pipe \
@@ -35,7 +35,7 @@ FF_CFLAGS="-O3 -Wall -pipe \
 -Wno-psabi -Wa,--noexecstack \
 -DANDROID  "
 
-PREFIX=./android/$CPU
+PREFIX=../build_script/android/$CPU
 
 rm "./compat/strtod.o"
 
@@ -123,5 +123,5 @@ make clean
 make -j16
 make install
 
-cp $FDK_LIB/libfdk-aac.so $PREFIX/lib
+cp $FDK_LIB/libfdk-aac.so ../build_script/android/$CPU/lib
 

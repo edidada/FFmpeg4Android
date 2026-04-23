@@ -1,17 +1,14 @@
 package com.mabeijianxi.jianxiffmpegcmd;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.tencent.bugly.crashreport.CrashReport;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     static {
         System.loadLibrary("avutil");
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickTest(View v){
-        CrashReport.testJavaCrash();
+        throw new RuntimeException("test crash");
     }
 
     public void onClick(View v){
@@ -83,6 +80,5 @@ public class MainActivity extends AppCompatActivity {
      */
     public native String getFFmpegConfig();
 }
-
 
 

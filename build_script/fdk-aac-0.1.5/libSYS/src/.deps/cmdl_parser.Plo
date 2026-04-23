@@ -1,0 +1,207 @@
+libSYS/src/cmdl_parser.lo: libSYS/src/cmdl_parser.cpp \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stdarg.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdio.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__config \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/features.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/cdefs.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/versioning.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/api-level.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/get_device_api_level_inlines.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/ndk-version.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/pthread.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdio.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stddef.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stddef.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/__stddef_max_align_t.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__nullptr \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdint.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stdint.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdint.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/wchar_limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/int-ll64.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/bitsperlong.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/bitsperlong.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/posix_types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/stddef.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler_types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/posix_types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/posix_types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/pthread_types.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/seek_constants.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/struct_file.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/string.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/string.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/xlocale.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/strcasecmp.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/strings.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/legacy_strings_inlines.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdlib.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/local/include/stdlib.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdlib.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/alloca.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/wait.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/wait.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/malloc.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/legacy_stdlib_inlines.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/math.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/local/include/math.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/math.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/float.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/float.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/posix_limits.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/type_traits \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/cstddef \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/version \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/limits \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__undef_macros \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/ctype.h \
+  /Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/ctype.h \
+  libSYS/include/cmdl_parser.h libSYS/include/machine_type.h \
+  libSYS/include/genericStds.h
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stdarg.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdio.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__config:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/features.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/cdefs.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/versioning.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/api-level.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/get_device_api_level_inlines.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/ndk-version.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/pthread.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdio.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stddef.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stddef.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/__stddef_max_align_t.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__nullptr:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdint.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/stdint.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdint.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/wchar_limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/int-ll64.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/bitsperlong.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/bitsperlong.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/posix_types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/stddef.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler_types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/posix_types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/posix_types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/pthread_types.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/seek_constants.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/struct_file.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/string.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/string.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/xlocale.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/strcasecmp.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/strings.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/legacy_strings_inlines.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/stdlib.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/local/include/stdlib.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdlib.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/alloca.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/wait.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/wait.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/malloc.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/legacy_stdlib_inlines.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/math.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/local/include/math.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/math.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/float.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/9.0.9/include/float.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/posix_limits.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/type_traits:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/cstddef:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/version:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/limits:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/__undef_macros:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/c++/v1/ctype.h:
+
+/Users/ibqo/Develop/git/github/android/ffmpeg4-android/android-sdk/android-ndk-r21e/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/ctype.h:
+
+libSYS/include/cmdl_parser.h:
+
+libSYS/include/machine_type.h:
+
+libSYS/include/genericStds.h:

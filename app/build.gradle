@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "26.0.1"
+    namespace "com.mabeijianxi.jianxiffmpegcmd"
+    compileSdkVersion 34
+    buildToolsVersion "36.0.0"
+    ndkPath file("${rootProject.projectDir}/android-sdk/android-ndk-r21e").absolutePath
     defaultConfig {
         applicationId "com.mabeijianxi.jianxiffmpegcmd"
         minSdkVersion 16
@@ -15,7 +17,7 @@ android {
                 cppFlags "-std=c++11"
             }
             ndk{
-                abiFilters "armeabi-v7a","armeabi","arm64-v8a","x86","x86_64"
+                abiFilters "armeabi-v7a","arm64-v8a","x86","x86_64"
             }
         }
     }
@@ -25,23 +27,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        jniLibs {
+            pickFirsts += [
+                    '**/libavcodec.so',
+                    '**/libavfilter.so',
+                    '**/libavformat.so',
+                    '**/libavutil.so',
+                    '**/libfdk-aac.so',
+                    '**/libswresample.so',
+                    '**/libswscale.so'
+            ]
+        }
+    }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path file("CMakeLists.txt")
+            version "3.18.1"
         }
     }
 }
 
 dependencies {
-    provided fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:23.4.0'
-    testCompile 'junit:junit:4.12'
-
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -1,9 +1,9 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
-# Sets the minimum version of CMake required to build the native library.
+cmake_minimum_required(VERSION 3.10)
 
-cmake_minimum_required(VERSION 3.4.1)
+project(jxffmpegrun)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -294,8 +294,9 @@ set_target_properties(
 endif(${ANDROID_ABI} STREQUAL "x86_64")
 
 include_directories(
-    /Users/ibqo/AndroidStudioProjects/Jianxiffmpegcmd/ffmpeg-3.2.5/
-
+    ${CMAKE_SOURCE_DIR}/src/main/cpp
+    ${CMAKE_SOURCE_DIR}/src/main/cpp/include
+    ${CMAKE_SOURCE_DIR}/../ffmpeg-3.2.5
 )
 
 # Searches for a specified prebuilt library and stores the path as a

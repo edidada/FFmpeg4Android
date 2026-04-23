@@ -1,7 +1,7 @@
 # Created by jianxi on 2017/6/4
 # https://github.com/mabeijianxi
 # mabeijianxi@gmail.com
-
+cd ../ffmpeg-3.2.5
 chmod a+x jianxi_ffmpeg_*.sh
 
 cd libx264

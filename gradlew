@@ -77,11 +77,26 @@ Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."
     fi
 else
-    JAVACMD="java"
-    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+    if $darwin -a -x /usr/libexec/java_home ; then
+        JAVA11_HOME=`/usr/libexec/java_home -v 11 2>/dev/null`
+        if [ -n "$JAVA11_HOME" ] ; then
+            JAVA_HOME="$JAVA11_HOME"
+            export JAVA_HOME
+            JAVACMD="$JAVA_HOME/bin/java"
+        fi
+    fi
+    if [ -z "$JAVACMD" ] ; then
+        JAVACMD="java"
+        which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
 
 Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."
+    elif [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: Could not find a usable Java runtime at: $JAVACMD
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
 fi
 
 # Increase the maximum file descriptors if we can.
