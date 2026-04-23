@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     namespace "com.mabeijianxi.jianxiffmpegcmd"
     compileSdkVersion 34
-    buildToolsVersion "36.0.0"
+    buildToolsVersion "34.0.0"
     ndkPath file("${rootProject.projectDir}/android-sdk/android-ndk-r21e").absolutePath
     defaultConfig {
         applicationId "com.mabeijianxi.jianxiffmpegcmd"
