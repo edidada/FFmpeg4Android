@@ -27,7 +27,7 @@ jobs:
       - name: Install Android SDK components
         shell: bash
         run: |
-          yes '' | sdkmanager --licenses
+          sdkmanager --licenses 2>/dev/null < <(printf 'y\n%.0s' {1..1000})
           sdkmanager \
             "platform-tools" \
             "platforms;android-34" \
