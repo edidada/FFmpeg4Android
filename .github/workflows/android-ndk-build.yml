@@ -130,6 +130,28 @@ jobs:
           echo "android.aapt2FromMavenOverride=$btdir/aapt2" >> ~/.gradle/gradle.properties
           echo "aapt2 override -> $(tail -1 ~/.gradle/gradle.properties)"
 
+      # Google also ships CMake 3.22.1 for AGP as x86_64-only linux binaries;
+      # shim AGP's cmake/ninja to the system native arm64 cmake/ninja so the
+      # AGP-driven CMake configure actually runs on ubuntu-*-arm.
+      - name: Shim AGP CMake to system tools (ubuntu-*-arm only)
+        shell: bash
+        if: runner.arch == 'ARM64' && runner.os == 'Linux'
+        run: |
+          set -e
+          if ! command -v cmake >/dev/null || ! command -v ninja >/dev/null; then
+            sudo apt-get update -y >/dev/null 2>&1 || true
+            sudo apt-get install -y cmake ninja-build >/dev/null 2>&1
+          fi
+          [ "$(command -v cmake)" ] || { echo "cmake missing"; exit 1; }
+          [ "$(command -v ninja)" ] || { echo "ninja missing"; exit 1; }
+          [ -d "$SDK_DIR/cmake/3.22.1" ] || \
+            "${SDK_DIR}/cmdline-tools/latest/bin/sdkmanager" "cmake;3.22.1" >/dev/null 2>&1
+          cdbin="$SDK_DIR/cmake/3.22.1/bin"
+          printf '#!/bin/sh\nexec /usr/bin/cmake "$@"\n'  > "$cdbin/cmake"
+          printf '#!/bin/sh\nexec /usr/bin/ninja "$@"\n' > "$cdbin/ninja"
+          chmod +x "$cdbin/cmake" "$cdbin/ninja"
+          "$cdbin/cmake" --version | head -1
+
       - name: Restore build caches (Gradle, NDK, CMake)
         uses: actions/cache@v4
         with:
