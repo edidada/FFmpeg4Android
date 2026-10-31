@@ -59,11 +59,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up JDK 17 (required by AGP 8.x)
+      - name: Set up JDK 21 (required by AGP 8.x; JDK 17 missing on windows-11-arm image)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: "21"
 
       - name: Resolve Android SDK dir (cross-OS)
         shell: bash
@@ -145,11 +145,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up JDK 17 (required by AGP 8.x)
+      - name: Set up JDK 21 (required by AGP 8.x; JDK 17 missing on windows-11-arm image)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: "21"
 
       - name: Resolve Android SDK dir (cross-OS)
         shell: pwsh
@@ -206,3 +206,4 @@ jobs:
           path: app/build/outputs/apk/**/*.apk
           if-no-files-found: error
           retention-days: 14
+

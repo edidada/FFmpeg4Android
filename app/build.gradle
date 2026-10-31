@@ -23,10 +23,9 @@ android {
                 cppFlags "-std=c++11"
             }
             ndk {
-                // Local builds: all four ABIs. CI can narrow the set through the
-                // ANDROID_ABI_FILTERS env var (comma separated) to save time.
-                abiFilters ciAbis ? ciAbis.split(",").collect { it.trim() }
-                                  : ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"]
+                // 三元结果是一个列表，必须用赋值形式（GDK 的 abiFilters 方法签名只收 varargs）
+                abiFilters = ciAbis ? ciAbis.split(",").collect { it.trim() }
+                                    : ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"]
             }
         }
     }
