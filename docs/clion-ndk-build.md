@@ -76,6 +76,12 @@ libavfilter.so / libswresample.so / libswscale.so`、`libjxffmpegrun.so`
   nvEncodeAPI.h），已改回 0。
 - `log2_tab.c` 在 CONFIG_SHARED=1 时会被 swresample、swscale 各自编入（两库各一份），
   avutil 里无条件编入 —— 源码清单生成的规则会自动带上。
+- zlib 的官方 CMakeLists 不能直接 in-tree 用：首次 configure 会把
+  source-tree 的 zconf.h 重命名成 zconf.h.included（submodule 永远 dirty），
+  且 NDK 下 tracked 的通用 zconf.h 会因 quoted-include 优先级抢先于生成版，
+  静默关掉 Z_HAVE_UNISTD_H（gzlib.c 报 lseek 未声明）。zlib.cmake 改为薄 CMake
+  pass：源文件与头文件全部拷到构建目录编译，zconf.h 配置生成（Z_HAVE_UNISTD_H=1），
+  输出名固定 libz.so，submodule 保持 pristine。
 
 ## 若要修改 config（例如打开 --enable-gpl）
 
