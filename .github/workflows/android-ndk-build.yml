@@ -1,15 +1,16 @@
 name: Android NDK build
 
-# 项目构建链 = Gradle 8 + AGP 8.2.2 + CMake/Ninja + NDK 27.0.12077973，
-# 全部由 AGP 在运行器上自动安装/定位（NDK、CMake、build-tools 按 ndkVersion /
-# externalNativeBuild.cmake.version 自动下载），因此对三大 OS（ubuntu / macos /
-# windows）天然兼容：没有 bash 脚本依赖，所有步骤经由各 runner 自带的 bash
-# shell 统一执行（Windows runner 用 Git Bash）。
+# 只编译 ndk 分支。构建链 = Gradle 8 + AGP 8.2.2 + CMake/Ninja + NDK
+# 27.0.12077973（NDK/CMake 由 AGP 按 ndkVersion / externalNativeBuild 自动下载，
+# 许可在 runner 预接受），全部步骤统一走 bash shell（Windows runner 自带
+# Git Bash），三大 OS（ubuntu / macos / windows）开箱即用。
+# 成功佐证：job 日志会列出 APK 文件名 / 大小 / SHA256，并有 upload-artifact。
 
 on:
   push:
-    branches: [main, master]
+    branches: [ndk]
   pull_request:
+    branches: [ndk]
   workflow_dispatch:
     inputs:
       abi:
@@ -28,7 +29,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 360
+    timeout-minutes: 300
     defaults:
       run:
         shell: bash
@@ -45,6 +46,23 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Resolve Android SDK dir (cross-OS)
+        shell: bash
+        run: |
+          sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+          echo "SDK_DIR=$sdk" >> "$GITHUB_ENV"
+
+      - name: Restore build caches (Gradle, NDK, CMake)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ${{ env.SDK_DIR }}/ndk/27.0.12077973
+            ${{ env.SDK_DIR }}/cmake/3.22.1
+          key: ndkbuild-${{ matrix.os }}-v1
+          restore-keys: ndkbuild-${{ matrix.os }}-
+
       - name: Resolve ABI list
         id: abi
         shell: bash
@@ -55,12 +73,26 @@ jobs:
             echo "abis=arm64-v8a" >> "$GITHUB_OUTPUT"
           fi
 
-      # SDK/NDK/CMake 均已在 runner 预装或由 AGP 自动下载（许可已在 runner 预接受），
-      # 无需 per-OS 的安装步骤。首次运行下载 NDK/CMake 需要几分钟。
-      - name: Build APK (Gradle + AGP auto-managed NDK/CMake)
+      - name: Build APK (Gradle + AGP auto-managed NDK/CMake; first run downloads NDK/CMake)
         env:
           ANDROID_ABI_FILTERS: ${{ steps.abi.outputs.abis }}
         run: ./gradlew --no-daemon :app:assembleDebug
+
+      - name: "Report APK artifacts (proof: name / size / sha256)"
+        shell: bash
+        run: |
+          echo "===== APK artifacts of ${{ matrix.os }} ====="
+          found=0
+          while IFS= read -r f; do
+            found=1
+            echo "APK   : $f"
+            echo "SIZE  : $(du -h "$f" | cut -f1)"
+            case "$(uname -s)" in
+              Darwin) echo "SHA256: $(shasum -a 256 "$f" | cut -d' ' -f1)" ;;
+              *)      echo "SHA256: $(sha256sum "$f" | cut -d' ' -f1)" ;;
+            esac
+          done < <(find app/build/outputs/apk -name '*.apk' -type f 2>/dev/null)
+          echo "found=$found"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
