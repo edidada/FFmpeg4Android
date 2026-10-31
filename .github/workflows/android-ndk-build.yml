@@ -2,9 +2,15 @@ name: Android NDK build
 
 # 只编译 ndk 分支。构建链 = Gradle 8 + AGP 8.2.2 + CMake/Ninja + NDK
 # 27.0.12077973（NDK/CMake 由 AGP 按 ndkVersion / externalNativeBuild 自动下载，
-# 许可在 runner 预接受），全部步骤统一走 bash shell（Windows runner 自带
-# Git Bash），三大 OS（ubuntu / macos / windows）开箱即用。
-# 成功佐证：job 日志会列出 APK 文件名 / 大小 / SHA256，并有 upload-artifact。
+# 许可在 runner 预接受），对官方标准托管运行器的全部平台/版本全支持：
+#   Linux x64   : ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-26.04
+#   Linux arm64 : ubuntu-24.04-arm, ubuntu-22.04-arm, ubuntu-26.04-arm
+#   Windows x64 : windows-latest, windows-2025, windows-2025-vs2026, windows-2022
+#   Windows arm : windows-11-arm, windows-11-vs2026-arm
+#   macOS Intel : macos-15-intel, macos-26-intel
+#   macOS arm64 : macos-latest, macos-14, macos-15, macos-26
+# Linux/macOS job 用 bash；Windows job 用原生的 pwsh（不走 Git Bash）。
+# 成功佐证：job 日志打印 APK 文件名 / 大小 / SHA256，并有 upload-artifact。
 
 on:
   push:
@@ -23,17 +29,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  # ---------- Linux (x64 & arm64) + macOS (Intel & Apple Silicon) ----------
+  build-posix:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os:
+          - ubuntu-latest
+          - ubuntu-26.04
+          - ubuntu-24.04
+          - ubuntu-22.04
+          - ubuntu-26.04-arm
+          - ubuntu-24.04-arm
+          - ubuntu-22.04-arm
+          - macos-26
+          - macos-15
+          - macos-14
+          - macos-latest
+          - macos-26-intel
+          - macos-15-intel
     runs-on: ${{ matrix.os }}
     timeout-minutes: 300
     defaults:
       run:
         shell: bash
-
     steps:
       - name: Checkout (with ffmpeg/zlib submodules)
         uses: actions/checkout@v4
@@ -60,8 +79,8 @@ jobs:
             ~/.gradle/wrapper
             ${{ env.SDK_DIR }}/ndk/27.0.12077973
             ${{ env.SDK_DIR }}/cmake/3.22.1
-          key: ndkbuild-${{ matrix.os }}-v1
-          restore-keys: ndkbuild-${{ matrix.os }}-
+          key: ndkbuild-posix-${{ matrix.os }}-v1
+          restore-keys: ndkbuild-posix-${{ matrix.os }}-
 
       - name: Resolve ABI list
         id: abi
@@ -73,6 +92,7 @@ jobs:
             echo "abis=arm64-v8a" >> "$GITHUB_OUTPUT"
           fi
 
+      # JDK17 already needed for Gradle; AGP downloads NDK/CMake automatically.
       - name: Build APK (Gradle + AGP auto-managed NDK/CMake; first run downloads NDK/CMake)
         env:
           ANDROID_ABI_FILTERS: ${{ steps.abi.outputs.abis }}
@@ -98,7 +118,91 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: FFmpeg4Android-apk-${{ matrix.os }}
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+  # ---------- Windows (x64 & arm64), native pwsh shell (no Git Bash) ----------
+  build-windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - windows-2025
+          - windows-2025-vs2026
+          - windows-2022
+          - windows-11-arm
+          - windows-11-vs2026-arm
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 300
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout (with ffmpeg/zlib submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 17 (required by AGP 8.x)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Resolve Android SDK dir (cross-OS)
+        shell: pwsh
+        run: |
+          $sdk = if ([Environment]::GetEnvironmentVariable('ANDROID_HOME')) {
+            [Environment]::GetEnvironmentVariable('ANDROID_HOME')
+          } else {
+            [Environment]::GetEnvironmentVariable('ANDROID_SDK_ROOT')
+          }
+          "SDK_DIR=$(($sdk -replace '\\','/'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Restore build caches (Gradle, NDK, CMake)
+        uses: actions/cache@v4
+        with:
           path: |
-            app/build/outputs/apk/**/*.apk
+            ~\.gradle\caches
+            ~\.gradle\wrapper
+            ${{ env.SDK_DIR }}/ndk/27.0.12077973
+            ${{ env.SDK_DIR }}/cmake/3.22.1
+          key: ndkbuild-win-${{ matrix.os }}-v1
+          restore-keys: ndkbuild-win-${{ matrix.os }}-
+
+      - name: Resolve ABI list
+        id: abi
+        shell: pwsh
+        run: |
+          $abi = "arm64-v8a"
+          if ("${{ github.event_name }}" -eq "workflow_dispatch" -and "${{ github.event.inputs.abi }}") {
+            $abi = "${{ github.event.inputs.abi }}"
+          }
+          "abis=$abi" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Build APK (Gradle + AGP auto-managed NDK/CMake; first run downloads NDK/CMake)
+        shell: pwsh
+        run: .\gradlew.bat --no-daemon :app:assembleDebug
+        env:
+          ANDROID_ABI_FILTERS: ${{ steps.abi.outputs.abis }}
+
+      - name: "Report APK artifacts (proof: name / size / sha256)"
+        shell: pwsh
+        run: |
+          "===== APK artifacts of ${{ matrix.os }} ====="
+          Get-ChildItem (Join-Path (Get-Location) 'app\build\outputs\apk') -Recurse -Filter *.apk -File |
+            ForEach-Object {
+              "APK   : $($_.FullName)"
+              "SIZE  : {0:N2} MB" -f ($_.Length / 1MB)
+              "SHA256: $((Get-FileHash $_.FullName -Algorithm SHA256).Hash)"
+            }
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: FFmpeg4Android-apk-${{ matrix.os }}
+          path: app/build/outputs/apk/**/*.apk
           if-no-files-found: error
           retention-days: 14
