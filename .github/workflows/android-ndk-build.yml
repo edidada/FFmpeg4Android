@@ -65,11 +65,35 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      - name: Resolve Android SDK dir (cross-OS)
+      - name: Ensure Android SDK (auto-install on SDK-less runners, e.g. ubuntu-*-arm)
         shell: bash
         run: |
-          sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
-          echo "SDK_DIR=$sdk" >> "$GITHUB_ENV"
+          if [ -n "${ANDROID_HOME:-}${ANDROID_SDK_ROOT:-}" ]; then
+            sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT}}"
+            echo "Preinstalled SDK: $sdk"
+          else
+            sdk="$PWD/android-sdk"
+            echo "No preinstalled SDK; installing cmdline-tools into $sdk"
+            case "$(uname -s)" in
+              Darwin) url=https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip ;;
+              *)      url=https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip ;;
+            esac
+            mkdir -p "$sdk/cmdline-tools"
+            curl -fsSL -o /tmp/ci-cmdtools.zip "$url"
+            unzip -qo /tmp/ci-cmdtools.zip -d "$sdk/cmdline-tools"
+            mv "$sdk/cmdline-tools/cmdline-tools" "$sdk/cmdline-tools/latest"
+          fi
+          {
+            echo "ANDROID_HOME=$sdk"
+            echo "SDK_DIR=$sdk"
+          } >> "$GITHUB_ENV"
+
+      - name: Accept Android SDK licenses
+        shell: bash
+        run: |
+          if [ -n "${ANDROID_HOME:-}" ]; then
+            yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          fi
 
       - name: Restore build caches (Gradle, NDK, CMake)
         uses: actions/cache@v4
@@ -151,15 +175,37 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      - name: Resolve Android SDK dir (cross-OS)
+      - name: Ensure Android SDK (auto-install on SDK-less runners, e.g. windows-11-arm)
         shell: pwsh
         run: |
-          $sdk = if ([Environment]::GetEnvironmentVariable('ANDROID_HOME')) {
-            [Environment]::GetEnvironmentVariable('ANDROID_HOME')
+          $ah = [Environment]::GetEnvironmentVariable('ANDROID_HOME')
+          $ar = [Environment]::GetEnvironmentVariable('ANDROID_SDK_ROOT')
+          if ($ah -or $ar) {
+            $sdk = if ($ah) { $ah } else { $ar }
+            Write-Host "Preinstalled SDK: $sdk"
           } else {
-            [Environment]::GetEnvironmentVariable('ANDROID_SDK_ROOT')
+            $sdk = Join-Path (Get-Location) 'android-sdk'
+            Write-Host "No preinstalled SDK; installing cmdline-tools into $sdk"
+            New-Item -ItemType Directory -Force -Path "$sdk\cmdline-tools" | Out-Null
+            Invoke-WebRequest -UseBasicParsing `
+              -Uri 'https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zip' `
+              -OutFile "$env:TEMP\ci-cmdtools.zip"
+            Expand-Archive -Path "$env:TEMP\ci-cmdtools.zip" -DestinationPath "$sdk\cmdline-tools" -Force
+            Move-Item "$sdk\cmdline-tools\cmdline-tools" "$sdk\cmdline-tools\latest" -Force
           }
-          "SDK_DIR=$(($sdk -replace '\\','/'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $slash = $sdk.Replace('\', '/')
+          "ANDROID_HOME=$slash" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "SDK_DIR=$slash"      | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Accept Android SDK licenses
+        shell: pwsh
+        run: |
+          if ($env:ANDROID_HOME) {
+            $sm = Join-Path $env:ANDROID_HOME 'cmdline-tools\latest\bin\sdkmanager.bat'
+            if (Test-Path $sm) {
+              foreach ($i in (1..200)) { 'y' } | & $sm --licenses | Out-Null
+            }
+          }
 
       - name: Restore build caches (Gradle, NDK, CMake)
         uses: actions/cache@v4
