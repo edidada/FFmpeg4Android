@@ -1,0 +1,6 @@
+[submodule "app/src/main/cpp/ffmpeg"]
+	path = app/src/main/cpp/ffmpeg
+	url = https://gitee.com/mirrors/ffmpeg.git
+[submodule "app/src/main/cpp/zlib"]
+	path = app/src/main/cpp/zlib
+	url = https://gitee.com/mirrors/zlib.git

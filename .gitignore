@@ -3,6 +3,7 @@
 .gradle-home/
 /local.properties
 /.idea/*
+**/.idea/
 .DS_Store
 /build
 /app/build/
@@ -11,3 +12,7 @@
 app/.cxx/
 android-sdk
 build_script/x264-src/
+
+# 本地 CMake/Ninja 构建输出（CLion 命令行构建目录）
+app/src/main/build/
+app/src/main/cpp/build/

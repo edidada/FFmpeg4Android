@@ -1,0 +1,72 @@
+name: Android NDK build
+
+# 项目构建链 = Gradle 8 + AGP 8.2.2 + CMake/Ninja + NDK 27.0.12077973，
+# 全部由 AGP 在运行器上自动安装/定位（NDK、CMake、build-tools 按 ndkVersion /
+# externalNativeBuild.cmake.version 自动下载），因此对三大 OS（ubuntu / macos /
+# windows）天然兼容：没有 bash 脚本依赖，所有步骤经由各 runner 自带的 bash
+# shell 统一执行（Windows runner 用 Git Bash）。
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      abi:
+        description: "逗号分隔的 ABI 列表（如 arm64-v8a,armeabi-v7a；留空用默认 arm64-v8a）"
+        required: false
+        default: "arm64-v8a"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 360
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout (with ffmpeg/zlib submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 17 (required by AGP 8.x)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Resolve ABI list
+        id: abi
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.abi }}" ]; then
+            echo "abis=${{ github.event.inputs.abi }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "abis=arm64-v8a" >> "$GITHUB_OUTPUT"
+          fi
+
+      # SDK/NDK/CMake 均已在 runner 预装或由 AGP 自动下载（许可已在 runner 预接受），
+      # 无需 per-OS 的安装步骤。首次运行下载 NDK/CMake 需要几分钟。
+      - name: Build APK (Gradle + AGP auto-managed NDK/CMake)
+        env:
+          ANDROID_ABI_FILTERS: ${{ steps.abi.outputs.abis }}
+        run: ./gradlew --no-daemon :app:assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: FFmpeg4Android-apk-${{ matrix.os }}
+          path: |
+            app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+          retention-days: 14
