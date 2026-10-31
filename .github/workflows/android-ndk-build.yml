@@ -138,17 +138,46 @@ jobs:
         if: runner.arch == 'ARM64' && runner.os == 'Linux'
         run: |
           set -e
-          if ! command -v cmake >/dev/null || ! command -v ninja >/dev/null; then
-            sudo apt-get update -y >/dev/null 2>&1 || true
-            sudo apt-get install -y cmake ninja-build >/dev/null 2>&1
+          tools="$SDK_DIR/native-host-tools"
+          mkdir -p "$tools/bin"
+          # 1) prefer distro packages; never hide apt errors
+          if ! command -v cmake >/dev/null 2>&1; then
+            sudo apt-get update -y 2>&1 | tail -2 || true
+            sudo apt-get install -y cmake 2>&1 | tail -2 || true
           fi
-          [ "$(command -v cmake)" ] || { echo "cmake missing"; exit 1; }
-          [ "$(command -v ninja)" ] || { echo "ninja missing"; exit 1; }
+          if ! command -v ninja >/dev/null 2>&1; then
+            sudo apt-get install -y ninja-build 2>&1 | tail -2 || true
+          fi
+          # 2) fallback: native aarch64 builds from Kitware / ninja-build releases
+          if ! command -v cmake >/dev/null 2>&1; then
+            echo "apt cmake failed; fetching Kitware cmake (linux-aarch64)"
+            curl -fL --retry 3 -o /tmp/cmake-aarch64.tar.gz \
+              "https://github.com/Kitware/CMake/releases/download/v3.31.6/cmake-3.31.6-linux-aarch64.tar.gz"
+            tar -xzf /tmp/cmake-aarch64.tar.gz -C /tmp
+            mv "$(find /tmp -maxdepth 1 -type d -name 'cmake-*' | head -1)/" "$tools/cmake/"
+            rm -f /tmp/cmake-aarch64.tar.gz
+            cmake_bin="$tools/cmake/bin/cmake"
+          else
+            cmake_bin="$(command -v cmake)"
+          fi
+          if ! command -v ninja >/dev/null 2>&1; then
+            echo "apt ninja failed; fetching ninja (linux-aarch64)"
+            curl -fL --retry 3 -o /tmp/ninja-aarch64.zip \
+              "https://github.com/ninja-build/ninja/releases/download/v1.12.1/ninja-linux-aarch64.zip"
+            unzip -qo /tmp/ninja-aarch64.zip -d "$tools/ninja/"
+            rm -f /tmp/ninja-aarch64.zip
+            ninja_bin="$tools/ninja/ninja"
+          else
+            ninja_bin="$(command -v ninja)"
+          fi
+          "$cmake_bin" --version | head -1
+          "$ninja_bin" --version
+          # 3) install AGP's cmake package dir (x86_64 payload), then shim both
           [ -d "$SDK_DIR/cmake/3.22.1" ] || \
-            "${SDK_DIR}/cmdline-tools/latest/bin/sdkmanager" "cmake;3.22.1" >/dev/null 2>&1
+            "${SDK_DIR}/cmdline-tools/latest/bin/sdkmanager" "cmake;3.22.1" 2>&1 | tail -2
           cdbin="$SDK_DIR/cmake/3.22.1/bin"
-          printf '#!/bin/sh\nexec /usr/bin/cmake "$@"\n'  > "$cdbin/cmake"
-          printf '#!/bin/sh\nexec /usr/bin/ninja "$@"\n' > "$cdbin/ninja"
+          printf '#!/bin/sh\nexec %q "$@"\n'  "$cmake_bin" > "$cdbin/cmake"
+          printf '#!/bin/sh\nexec %q "$@"\n' "$ninja_bin" > "$cdbin/ninja"
           chmod +x "$cdbin/cmake" "$cdbin/ninja"
           "$cdbin/cmake" --version | head -1
 
