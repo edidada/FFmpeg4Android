@@ -2,6 +2,9 @@
 
 buildscript {
     repositories {
+        // Aliyun google mirror first (reliable in CN networks), official repos follow as fallback.
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
         google()
         mavenCentral()
     }
@@ -14,6 +17,8 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
         google()
         mavenCentral()
     }
