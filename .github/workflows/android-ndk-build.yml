@@ -95,6 +95,41 @@ jobs:
             yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
           fi
 
+      # Google ships no arm64-linux Android host tools (NDK/AAPT2 are x86_64
+      # only), so on ubuntu-*-arm runners install community native arm64
+      # rebuilds: NDK r27 (HomuHomu833) placed at the exact dir AGP expects,
+      # and a Commit451 aapt2 wired via android.aapt2FromMavenOverride.
+      # Everything else (platforms, Gradle, JDK) is arch-independent.
+      - name: Native arm64 Android toolchain (ubuntu-*-arm only)
+        shell: bash
+        if: runner.arch == 'ARM64'
+        run: |
+          set -e
+          # --- NDK r27, native aarch64 host, at the path AGP expects ---
+          ndkdir="${SDK_DIR:-$ANDROID_HOME}/ndk/27.0.12077973"
+          if [ ! -f "$ndkdir/source.properties" ]; then
+            echo "Fetching native arm64 NDK r27 (community build)"
+            curl -fL --retry 3 -o /tmp/ndk-aarch64.tar.xz \
+              "https://github.com/HomuHomu833/android-ndk-custom/releases/download/r27/android-ndk-r27-aarch64-linux-gnu.tar.xz"
+            mkdir -p /tmp/ndk-aarch64 "$ndkdir"
+            tar -xJf /tmp/ndk-aarch64.tar.xz -C /tmp/ndk-aarch64
+            root="$(find /tmp/ndk-aarch64 -mindepth 1 -maxdepth 1 -type d | head -1)"
+            mv "$root/." "$ndkdir/"
+            rm -rf /tmp/ndk-aarch64 /tmp/ndk-aarch64.tar.xz
+          fi
+          echo "NDK at: $(head -4 "$ndkdir/source.properties")"
+          # --- native arm64 aapt2 (Commit451) + Maven override ---
+          btdir="${SDK_DIR:-$ANDROID_HOME}/build-tools/native-arm64"
+          mkdir -p "$btdir" ~/.gradle
+          if [ ! -x "$btdir/aapt2" ]; then
+            curl -fL --retry 3 -o "$btdir/aapt2" \
+              "https://github.com/Commit451/android-arm-build-tools/releases/download/platform-tools-37.0.0/aapt2"
+            chmod +x "$btdir/aapt2"
+            "$btdir/aapt2" version
+          fi
+          echo "android.aapt2FromMavenOverride=$btdir/aapt2" >> ~/.gradle/gradle.properties
+          echo "aapt2 override -> $(tail -1 ~/.gradle/gradle.properties)"
+
       - name: Restore build caches (Gradle, NDK, CMake)
         uses: actions/cache@v4
         with:
@@ -203,7 +238,8 @@ jobs:
           if ($env:ANDROID_HOME) {
             $sm = Join-Path $env:ANDROID_HOME 'cmdline-tools\latest\bin\sdkmanager.bat'
             if (Test-Path $sm) {
-              foreach ($i in (1..200)) { 'y' } | & $sm --licenses | Out-Null
+              $answers = 1..200 | ForEach-Object { 'y' }
+              $answers | & $sm --licenses | Out-Null
             }
           }
 
