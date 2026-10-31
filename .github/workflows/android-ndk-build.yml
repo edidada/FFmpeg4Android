@@ -102,7 +102,7 @@ jobs:
       # Everything else (platforms, Gradle, JDK) is arch-independent.
       - name: Native arm64 Android toolchain (ubuntu-*-arm only)
         shell: bash
-        if: runner.arch == 'ARM64'
+        if: runner.arch == 'ARM64' && runner.os == 'Linux'
         run: |
           set -e
           # --- NDK r27, native aarch64 host, at the path AGP expects ---
@@ -111,13 +111,13 @@ jobs:
             echo "Fetching native arm64 NDK r27 (community build)"
             curl -fL --retry 3 -o /tmp/ndk-aarch64.tar.xz \
               "https://github.com/HomuHomu833/android-ndk-custom/releases/download/r27/android-ndk-r27-aarch64-linux-gnu.tar.xz"
-            mkdir -p /tmp/ndk-aarch64 "$ndkdir"
-            tar -xJf /tmp/ndk-aarch64.tar.xz -C /tmp/ndk-aarch64
-            root="$(find /tmp/ndk-aarch64 -mindepth 1 -maxdepth 1 -type d | head -1)"
-            mv "$root/." "$ndkdir/"
-            rm -rf /tmp/ndk-aarch64 /tmp/ndk-aarch64.tar.xz
+            mkdir -p "$ndkdir"
+            # extract straight into place (strips the android-ndk-r27 root dir);
+            # never mv across filesystems (/tmp and workspace are different mounts)
+            tar -xJf /tmp/ndk-aarch64.tar.xz -C "$ndkdir" --strip-components=1
+            rm -f /tmp/ndk-aarch64.tar.xz
           fi
-          echo "NDK at: $(head -4 "$ndkdir/source.properties")"
+          echo "NDK rev: $(grep Pkg.Revision "$ndkdir/source.properties")"
           # --- native arm64 aapt2 (Commit451) + Maven override ---
           btdir="${SDK_DIR:-$ANDROID_HOME}/build-tools/native-arm64"
           mkdir -p "$btdir" ~/.gradle
